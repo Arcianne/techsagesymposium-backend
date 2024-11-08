@@ -3,5 +3,6 @@ const app = express();
 const router = express.Router();
 
 router.use("/v1/events", require("./events.routes.js"))
+router.use("/v1/subscribers", require("./subscribers.routes.js"))
 
 module.exports = router; 
