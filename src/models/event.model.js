@@ -10,6 +10,11 @@ const EventSchema = new Schema(
         venue: String,
         duration: String,
         date: Date,
+        speaker_desc: String,
+        event_detail: String,
+        tags: String,
+        email: String,
+        is_pending: Boolean
     },
     {
         timestamps: true,

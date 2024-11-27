@@ -21,4 +21,5 @@ app.listen(process.env.PORT, () => {
     console.log("List of Routes")
     console.log("http://localhost:8000/api/v1/events")
     console.log("http://localhost:8000/api/v1/subscribers")
+    console.log("http://localhost:8000/api/v1/attendees")
 } )

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const Event = require("../models/event.model");
+const Attendee = require("../models/attendees.model");
 
-class EventsController {
-    async fetchAllEvents(req, res) {
+class AttendeesController {
+    async fetchAllAttendees(req, res) {
         try {
-            const data = await Event.find()
+            const data = await Attendee.find()
             res.status(200).json({
                 status: "Successfully Retrieved Data",
                 results: data.length,
@@ -18,12 +18,12 @@ class EventsController {
         }
     }
 
-    async fetchEventById(req, res) {
+    async fetchAttendeeById(req, res) {
         const id = req.params.id;
         try {
-            const data = await Event.findById(id)
+            const data = await Attendee.findById(id)
             res.status(200).json({
-                status: "Successfully Retrieved Event",
+                status: "Successfully Retrieved Attendee",
                 data
             })
         } catch (error) {
@@ -34,11 +34,11 @@ class EventsController {
         }
     }
 
-    async fetchEventsByPendingStatus(req,res) {
+    async fetchAttendeeByPendingStatus(req,res) {
         const pendingStatus = req.params.pending_status;
         const isPending = pendingStatus === 'true';
         try {
-            const data = await Event.where({is_pending: isPending})
+            const data = await Attendee.where({is_pending: isPending})
             res.status(200).json({
                 status: "Successfully Retrieved Event",
                 data
@@ -51,34 +51,34 @@ class EventsController {
         }
     }
 
-    async registerEvent(req, res){
+    async registerAttendee(req, res){
         try {
-            const registerEvent = await Event.create(req.body)
+            const registerAttendee = await Attendee.create(req.body)
             res.status(201).json({
                 status: "created successfully",
                 data: {
-                    registerEvent
+                    registerAttendee
                 }    
             })
         } catch (error) {
             res.status(422).json({
-                message: "Failed to register Events",
+                message: "Failed to register Attendee",
                 error
             })
         }
     }
 
-    async editEvent(req, res){
+    async editAttendeeById(req, res){
         const id = req.params.id;
         const updateData = req.body;
 
         try {
-            const updateEvent = await Event.findByIdAndUpdate(id, updateData, {
+            const updateAttendeeById = await Attendee.findByIdAndUpdate(id, updateData, {
                 new: true,
             })
             res.status(200).json({
-                status: "Event Update Successfully",
-                data: updateEvent,
+                status: "Attendee Update Successfully",
+                data: updateAttendee,
             })
         } catch (error) {
             res.status(404).json({
@@ -88,11 +88,11 @@ class EventsController {
         }
     }
 
-    async deleteEvent(req, res){
+    async deleteAttendeeById(req, res){
         const id = req.params.id;
 
         try {
-            const deleteEvent = await Event.findByIdAndDelete(id)
+            const deleteAttendee = await Attendee.findByIdAndDelete(id)
 
             res.status(200).json({
                 status: "Deleted Successfully",
@@ -106,4 +106,4 @@ class EventsController {
     }
 }
 
-module.exports = new EventsController()
+module.exports = new AttendeesController()
