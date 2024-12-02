@@ -38,9 +38,11 @@ class AttendeesController {
         const pendingStatus = req.params.pending_status;
         const isPending = pendingStatus === 'true';
         try {
-            const data = await Attendee.where({is_pending: isPending})
+            const data = await Attendee.where({ is_pending: isPending })
+                .populate({ path: 'event_id', select:['title']})
             res.status(200).json({
                 status: "Successfully Retrieved Event",
+                results: data.length,
                 data
             })
         } catch (error) {
@@ -88,7 +90,7 @@ class AttendeesController {
         }
     }
 
-    async   deleteAttendeeById(req, res){
+    async deleteAttendeeById(req, res){
         const id = req.params.id;
 
         try {
