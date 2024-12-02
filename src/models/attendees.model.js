@@ -6,7 +6,6 @@ const AttendeeSchema = new Schema(
         attendee_name: String,
         contact_no: String,
         email: String,
-        address: String,
         event_id: {
             type: mongoose.Schema.Types.ObjectId, ref: 'Event'
         },

@@ -52,10 +52,32 @@ class EventsController {
         }
     }
 
+    async filterEvent(req, res){
+        try {
+            const filter = req.params.filter;
+            const value = req.query.value;
+            const data = await Event.where({ 
+                [filter]: value,
+                is_pending: false 
+            })
+            res.status(200).json({
+                status: "Filtered Successfully",
+                results: data.length,
+                data
+            })
+        } catch (error) {
+            res.status(404).json({
+                status: "Failed to Retrieve Data",
+                error
+            })
+        }
+    }
+
     async registerEvent(req, res){
         try {
             const { 
                 title, 
+                mode_of_delivery,
                 attendees, 
                 speaker, 
                 location, 
@@ -75,6 +97,7 @@ class EventsController {
 
             const registerEvent = await Event.create({
                 title, 
+                mode_of_delivery,
                 attendees, 
                 speaker, 
                 location, 
@@ -95,6 +118,7 @@ class EventsController {
                     contact_number: registrator.contact_number,
                 }
             })
+            
             res.status(201).json({
                 status: "created successfully",
                 data: {
