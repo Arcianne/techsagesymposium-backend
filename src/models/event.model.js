@@ -13,7 +13,7 @@ const EventSchema = new Schema(
         date: Date,
         speaker_information: String,
         event_details: String,
-        tags: String,
+        tags: [String],
         email: String,
         is_pending: Boolean,
         images: {

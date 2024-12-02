@@ -78,17 +78,17 @@ class AttendeesController {
             })
             res.status(200).json({
                 status: "Attendee Update Successfully",
-                data: updateAttendee,
+                data: updateAttendeeById,
             })
         } catch (error) {
             res.status(404).json({
-                status: "Cannot Find Event",
+                status: "Cannot Find Attendee",
                 error
             })
         }
     }
 
-    async deleteAttendeeById(req, res){
+    async   deleteAttendeeById(req, res){
         const id = req.params.id;
 
         try {

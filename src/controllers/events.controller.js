@@ -89,6 +89,7 @@ class EventsController {
                 images,
                 speaker_information,
                 event_details,
+                tags,
                 registrator,
             } = req.body;
 
@@ -108,6 +109,7 @@ class EventsController {
                 is_pending,
                 speaker_information,
                 event_details,
+                tags: tags.split(',').map(item => item.trim()),
                 images: {
                     event_cover: eventCoverUrl,
                     speaker_image: speakerImageUrl
