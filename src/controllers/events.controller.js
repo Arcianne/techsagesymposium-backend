@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Event = require("../models/event.model");
+const { uploadImageToCloudinary } = require("../services/events.service")
 
 class EventsController {
     async fetchAllEvents(req, res) {
@@ -53,7 +54,47 @@ class EventsController {
 
     async registerEvent(req, res){
         try {
-            const registerEvent = await Event.create(req.body)
+            const { 
+                title, 
+                attendees, 
+                speaker, 
+                location, 
+                venue, 
+                duration, 
+                date, 
+                email, 
+                is_pending,
+                images,
+                speaker_information,
+                event_details,
+                registrator,
+            } = req.body;
+
+            const eventCoverUrl = await uploadImageToCloudinary(images.event_cover)
+            const speakerImageUrl = await uploadImageToCloudinary(images.speaker_image)
+
+            const registerEvent = await Event.create({
+                title, 
+                attendees, 
+                speaker, 
+                location, 
+                venue, 
+                duration, 
+                date, 
+                email, 
+                is_pending,
+                speaker_information,
+                event_details,
+                images: {
+                    event_cover: eventCoverUrl,
+                    speaker_image: speakerImageUrl
+                },
+                registrator: {
+                    full_name: registrator.full_name,
+                    email: registrator.email,
+                    contact_number: registrator.contact_number,
+                }
+            })
             res.status(201).json({
                 status: "created successfully",
                 data: {

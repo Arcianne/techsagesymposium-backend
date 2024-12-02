@@ -10,11 +10,20 @@ const EventSchema = new Schema(
         venue: String,
         duration: String,
         date: Date,
-        speaker_desc: String,
-        event_detail: String,
+        speaker_information: String,
+        event_details: String,
         tags: String,
         email: String,
-        is_pending: Boolean
+        is_pending: Boolean,
+        images: {
+            event_cover: String,
+            speaker_image: String
+        },
+        registrator: {
+            full_name: String,
+            email: String,
+            contact_number: String,
+        }
     },
     {
         timestamps: true,
